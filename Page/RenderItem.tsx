@@ -4,13 +4,13 @@ import {  View, Text,  TouchableOpacity} from "react-native";
 import {Task} from "../Componentes/Tablero";
 interface ItemProps{
     item:Task,
-    markDone:()=>void,
-    deleteFunction:()=>void
+    markDone:(task:Task)=>void,
+    deleteFunction:(task:Task)=>void
 }
 export default function RenderItem({ item,markDone,deleteFunction }: ItemProps) {
     return(
         <View>
-            <TouchableOpacity onPress={markDone}>
+            <TouchableOpacity onPress={()=>markDone(item)}>
                 <Text style={item.done ? estilos.textDone : estilos.text}>{item.title}</Text>
                 <Text>{item.date.toDateString()}</Text>
             </TouchableOpacity>
@@ -18,7 +18,7 @@ export default function RenderItem({ item,markDone,deleteFunction }: ItemProps) 
                 item.done && 
                 (<TouchableOpacity 
                 style = {estilos.removeBoton}
-                onPress={deleteFunction}>
+                onPress={()=>deleteFunction(item)}>
                     
                     <Text style = {estilos.removeText}>Eliminar </Text>
                 </TouchableOpacity>)
